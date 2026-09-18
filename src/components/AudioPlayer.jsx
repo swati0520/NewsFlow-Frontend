@@ -178,7 +178,7 @@ const AudioPlayer = ({
           </h3>
         </div>
         <div className="rounded-full border border-violet-400/30 bg-violet-500/10 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.16em] text-violet-100">
-          {hasAudio ? "LIVE" : "READY"}
+          {hasAudio ? "AUDIO" : hasSpeech ? "VOICE" : "UNAVAILABLE"}
         </div>
       </div>
 
@@ -190,7 +190,7 @@ const AudioPlayer = ({
           <div>
             <p className="text-sm font-medium text-zinc-200">{source}</p>
             <p className="text-xs text-zinc-400">
-              {hasAudio ? "Morning briefing" : "Audio unavailable for this story yet"}
+              {hasAudio ? "Morning briefing" : hasSpeech ? "AI voice briefing" : "Audio unavailable"}
             </p>
           </div>
         </div>
@@ -214,12 +214,12 @@ const AudioPlayer = ({
         <div className="h-2 w-full overflow-hidden rounded-full bg-white/8">
           <div
             className="h-full rounded-full bg-gradient-to-r from-violet-400 via-violet-300 to-fuchsia-300 shadow-[0_0_10px_rgba(192,132,252,0.6)]"
-            style={{ width: `${hasAudio ? progressValue : 0}%` }}
+            style={{ width: `${hasAudio ? progressValue : hasSpeech ? 0 : 0}%` }}
           />
         </div>
         <div className="flex items-center justify-between text-xs uppercase tracking-[0.14em] text-zinc-400">
-          <span>{hasAudio ? formatTime(currentTime) : "N/A"}</span>
-          <span>{hasAudio ? totalDuration : "No audio"}</span>
+          <span>{hasAudio ? formatTime(currentTime) : hasSpeech ? "--:--" : "--:--"}</span>
+          <span>{hasAudio ? totalDuration : hasSpeech ? "VOICE" : "UNAVAILABLE"}</span>
         </div>
       </div>
     </div>
